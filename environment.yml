@@ -1,0 +1,9 @@
+name: nondeterminismwtf
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.10.14
+  - pytorch=2.2.2
+  - transformers=4.39.3
+  - pytest=8.1.1
