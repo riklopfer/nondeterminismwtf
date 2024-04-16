@@ -25,15 +25,16 @@ def encoder_factory(model_name_or_path: str, device: Optional[str]):
 
 
 @pytest.mark.parametrize(
-    "encoder_fn",
+    "factory_kwargs",
     [
-        encoder_factory("gpt2", device=None),
-        encoder_factory("gpt2", device="mps"),
-        encoder_factory("gpt2", device="cpu"),
-        encoder_factory("roberta-base", device="mps"),
+        dict(model_name_or_path="gpt2", device=None),
+        dict(model_name_or_path="gpt2", device="mps"),
+        dict(model_name_or_path="gpt2", device="cpu"),
+        dict(model_name_or_path="roberta-base", device="mps"),
     ],
 )
-def test_idempotency(encoder_fn):
+def test_idempotency(factory_kwargs):
+    encoder_fn = encoder_factory(**factory_kwargs)
     the_text = "this is a test"
     res1 = encoder_fn(the_text)
     for _ in range(5):
